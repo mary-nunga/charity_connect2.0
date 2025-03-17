@@ -1,5 +1,7 @@
 <?php
-include("db_connection.php");
+include('db_connection.php');
+login();
+session_start();
 ?>
 <!doctype html>
 <html>

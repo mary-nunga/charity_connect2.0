@@ -1,12 +1,20 @@
 <?php
-session_start();// starts a session
+session_start();
 //checks if user is logged in if not it takes to login page
 
 if(!isset($_SESSION['username'])){
 	header("Location: login.php");
 	exit();
 }
-
+include('db_connection.php');
+//to see data in the db in a table first show username session
+if (isset($_SESSION['username'])) {
+        $username = $_SESSION['username'];
+	//then use select query to get data from db	
+	$sql= "SELECT * FROM donations WHERE Donor= '$username'";
+	//this runs the query and stores the output in db
+	$result = mysqli_query($con,$sql);
+	}
 ?>
 <!doctype html>
 <html>
@@ -35,18 +43,17 @@ if(!isset($_SESSION['username'])){
 			margin-right: 30px;
 			margin-left: 20px;
 			margin-bottom: 500px;
-			width: 170px;
+			width: 180px;
 			border: solid;
 			border-radius: 10px;
-			height: 250px;
-			
-			
+			height: 300px;
+
 		}
 		#div2{
 			
 			text-align: center;
 			float: right;
-			margin-top: 100px;
+			margin-top: 40px;
 			margin-left: 60px;
 			margin-bottom: 40px;
 			align-content: center;
@@ -71,9 +78,11 @@ if(!isset($_SESSION['username'])){
 			
 		}
 		#welcome{
-			margin-top: 90px;
+			margin-top: 80px;
 			text-align: center;
 			color: whitesmoke;
+			font-family: 'Brush Script MT', cursive;
+			font-size: 70px;
 		}
 	</style>
 </head>
@@ -104,8 +113,8 @@ if(!isset($_SESSION['username'])){
 	 </div>
 	
 
-	
-	<h2 id="welcome"><strong>WELCOME, <?php echo $_SESSION['username'];?></strong></h2>
+<!--	this basically shows a welcome message with the users username-->
+	<h2 id="welcome"><strong>WELCOME, <?php echo $_SESSION['username'];?>!</strong></h2>
 	<div id="div2">
 	
 		<p>
@@ -124,34 +133,23 @@ if(!isset($_SESSION['username'])){
                  <th width="14%">Payment Method</th>
 			 
 			 </tr>
-			 <tr>
-				 <td>1</td>
-				 <td>Janine</td>
-				 <td>200000</td>
-				 <td>Paypal</td>
+<!--here is where we put data from db in each row/column			 -->
+			<?php
+				 while($rows=$result->fetch_assoc()){
+					?>
+				 <tr>
+<!--the data in quotes are the column names in db					 -->
+					 <td><?php echo $rows['Donation_id'];?></td>
+					 <td><?php echo $rows['Receipient_name'];?></td>
+					 <td><?php echo $rows['Amount_donated'];?></td>
+					 <td><?php echo $rows['Payment_method'];?></td>
 			 
+			    </tr>
+			 <?php
+				 }
+				 ?>
 			 </tr>
-			 <tr>
-				 <td>2</td>
-				 <td>tracey</td>
-				 <td>400000</td>
-				 <td>Mpesa</td>
-			 
-			 </tr>
-			 <tr>
-				 <td>3</td>
-				 <td>John</td>
-				 <td>2300444</td>
-				 <td>Card</td>
-			 
-			 </tr>
-			 <tr>
-				 <td>4</td>
-				 <td>Bruce</td>
-				 <td>500000</td>
-				 <td>Paypal</td>
-			 
-			 </tr>
+
 		</tbody>
 		</table>
 	</div>

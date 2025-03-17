@@ -1,3 +1,13 @@
+<?php
+session_start();// starts a session
+//checks if user is logged in if not it takes to login page
+
+if(!isset($_SESSION['username'])){
+	header("Location: login.php");
+	exit();
+}
+
+?>
 <!doctype html>
 <html>
 <head>
@@ -60,6 +70,11 @@
 			padding-bottom: 20px;
 			
 		}
+		#welcome{
+			margin-top: 90px;
+			text-align: center;
+			color: whitesmoke;
+		}
 	</style>
 </head>
 
@@ -87,6 +102,10 @@
 				<a href="profile.php" class=" btn btn-secondary"><strong>My Profile</strong></a>
 				<a href="settings.php" class="btn btn-secondary"><strong>Settings</strong></a>
 	 </div>
+	
+
+	
+	<h2 id="welcome"><strong>WELCOME, <?php echo $_SESSION['username'];?></strong></h2>
 	<div id="div2">
 	
 		<p>

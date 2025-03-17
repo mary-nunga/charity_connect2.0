@@ -1,3 +1,7 @@
+<?php
+include('db_connection.php');
+donate();
+?>
 <!doctype html>
 <html>
 <head>
@@ -15,8 +19,8 @@
 		float: left;
 		border-radius: 50px;
 		width: 450px;
-		height: 350px;
-		margin-top: 200px;
+		height: 500px;
+		margin-top: 140px;
 		font-size: 20px;
 		color: black;
 		background-color: whitesmoke;
@@ -32,6 +36,9 @@
 	}
 	select{
 		width: 250px;
+	}
+	#date{
+		padding-right: 100px;
 	}
 	
 	</style>
@@ -73,7 +80,9 @@
 				<option>Paypal</option>
 				
 			</select><br>
-			<input type="submit" id="button" name="button" value=" Donate" class="btn btn-dark btn-lg" style="margin-top: 30px"><br>
+			<label id="date" for="date" style="padding-top: 30px">Date: </label>
+			<input type="date" name="date" id="date"><br>
+			<input type="submit" id="submit" name="submit" value=" Donate" class="btn btn-dark btn-lg" style="margin-top: 30px"><br>
 			<div id="div3"><a href="donation_profile.php" class="btn btn-dark btn-lg">Back</a></div>
 			
 			</form>
